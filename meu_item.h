@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QGraphicsItem>
 #include <QString>
+#include <QDebug>
 
 #include "pilha.h"
 #include "funcoes.h" //Para exibir os dados do no nas figuras
@@ -13,6 +14,7 @@ class Meu_Item :public QGraphicsItem  // class for customization
 {
 public:
     Meu_Item();
+    ~Meu_Item();
 
     QRectF limitadorPagina() const;
 
@@ -22,9 +24,10 @@ public:
                , QWidget * widget);
 
     // item state
-    int cont;
+    int busca;
     bool Ligado;
     bool Pressionado;
+    void setPilha(Pilha * pilha, QString QIdadeBusca);
     void setPilha(Pilha * pilha);
 
 private:
@@ -34,6 +37,9 @@ private:
     int y1 = 0;
     int x2 = 100;
     int y2 = 60;
+    int X_Final;
+
+
 
     void atualizaTudo();
 
@@ -42,7 +48,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 void No_Print(QPainter *Desenho, Pilha *pilha);
-void desenha_flecha(QPainter *Desenho, const int coord_X, const int coord_Y, int seta, int cabo);
+void desenha_flecha_Esq(QPainter *Desenho, const int coord_X, const int coord_Y, int seta, int cabo);
 
 };
 
