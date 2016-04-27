@@ -12,7 +12,7 @@ private:
     Nol * Trailer;
 
     void insert_before(Nol * noh, int idade, string & texto);
-    void remove(Nol * noh);
+
     void push_back(int idade, string & nome);
 public:
     Pilha();
@@ -24,6 +24,8 @@ public:
 
     void Push_back_Org(int idade, string & nome);
     void pop_back();
+    void remove(Nol * noh);
+    Nol* Buscar(int idade);
     string Print();
 
 };

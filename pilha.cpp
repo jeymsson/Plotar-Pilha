@@ -88,6 +88,26 @@ void Pilha::pop_back()
     }
 }
 
+Nol *Pilha::Buscar(int idade)
+{   Nol * retorna = NULL;
+
+    Nol * trailer  = getTrailer();
+    Nol * ponteiro = getHeader()->getNext();
+    if(ponteiro != trailer){// Se tiver elementos
+
+        //Percorre o caminho até achar o valor ou ate chegar ao fim
+        while(ponteiro->getNext() != trailer && ponteiro->getIdade() != idade){
+            ponteiro = ponteiro->getNext();
+        }
+        if(ponteiro->getIdade() != idade){//Se nao achou sai.
+            return retorna;
+        } else { // Se tiver a idade entra.
+            retorna = ponteiro;
+        }
+    }
+    return retorna;
+}
+
 string Pilha::Print()
 {
     string print;
