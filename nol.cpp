@@ -98,3 +98,39 @@ string Nol::getNomes()
     return string("");
 }
 
+string Nol::getNome(int NumeroNome)
+{
+    string print;
+    this->ordena();
+
+    //NumeroNome nao pode ser < 3, já que tem so 3 nomes
+    if(NumeroNome > 0  || NumeroNome < 3){
+               if(NumeroNome == 1 ){
+            print=  this->nome1;
+        } else if(NumeroNome == 2 ){
+            print=  this->nome2;
+        } else if(NumeroNome == 3 ){
+            print=  this->nome3;
+        }
+    } else {
+        print = "";
+    }
+    return print;
+}
+
+void Nol::setNome(int NumeroNome, string texto)
+{
+    //NumeroNome nao pode ser < 3, já que tem so 3 nomes
+    if(NumeroNome > 0  || NumeroNome < 3){
+               if(NumeroNome == 1 ){
+            this->nome1 = texto;
+        } else if(NumeroNome == 2 ){
+            this->nome2 = texto;
+        } else if(NumeroNome == 3 ){
+            this->nome3 = texto;
+        }
+    } else {
+        cout << "Não adicionado numero fora dos limites";
+    }
+}
+

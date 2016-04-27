@@ -19,10 +19,10 @@ private:
     string nome2;
     string nome3;
 
-    void ordena();
 public:
     Nol();
     ~Nol();
+    void ordena();
     void setTexto(string & texto);
 
     void setCoord_x(int x);
@@ -35,6 +35,8 @@ public:
 
     int getIdade();
     string getNomes();
+    string getNome(int NumeroNome);
+    void   setNome(int NumeroNome, string texto);
 
     friend class Pilha;
 };
