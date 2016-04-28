@@ -12,6 +12,7 @@
 #include "meu_item.h"
 #include "pilha.h"
 #include "funcoes.h"
+#include "manipulacoes.h"
 
 namespace Ui {
 class Dialog;
@@ -30,8 +31,12 @@ private slots:
 
     void on_botaoInserir_clicked();
 
+    void on_botaoRemover_clicked();
 
-    void on_botaoRemover_clicked(bool checked);
+    void on_botaoBuscar_clicked();
+    void adicionaEm_combo(int idade);
+
+    void on_botaoImporta_clicked();
 
 private:
     Pilha * pilha;
@@ -40,6 +45,8 @@ private:
     QGraphicsScene *Cenario;
     Meu_Item *Item;
 
+    int ultimo_BUSCADO;
+    QIntValidator * validaIdade;
 
 };
 
