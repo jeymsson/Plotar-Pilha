@@ -25,6 +25,7 @@ public:
     void Push_back_Org(int idade, string & nome);
     void pop_back();
     void remove(Nol * noh);
+    void clear();
     Nol* Buscar(int idade);
     string Print();
 

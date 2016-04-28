@@ -2,6 +2,22 @@
 
 #include <iostream>
 
+Pilha::Pilha(){
+    this->Header = new Nol();
+    this->Trailer = new Nol();
+
+    Header->Back = NULL;
+    Trailer->Back = Header;
+    Trailer->Next = NULL;
+    Header->Next = Trailer;
+}
+
+Pilha::~Pilha(){
+    clear();
+    delete getTrailer();
+    delete getHeader();
+}
+
 void Pilha::insert_before(Nol * noh, int idade, string & texto)
 {
     if (noh == getHeader()) {
@@ -29,23 +45,6 @@ void Pilha::remove(Nol * noh)
         delete noh;
     }
 }
-
-Pilha::Pilha(){
-    this->Header = new Nol();
-    this->Trailer = new Nol();
-
-    Header->Back = NULL;
-    Trailer->Back = Header;
-    Trailer->Next = NULL;
-    Header->Next = Trailer;
-}
-
-Pilha::~Pilha(){
-    while (!empty()) {
-        pop_back();
-    }
-}
-
 
 Nol * Pilha::getHeader()
 {
@@ -85,6 +84,13 @@ void Pilha::pop_back()
         cout << "Nao, desimpilheirado, Estrutura vazia.";
     } else {
         remove(getTrailer()->Back);
+    }
+}
+
+void Pilha::clear()
+{
+    while (!empty()) {
+        pop_back();
     }
 }
 
