@@ -29,6 +29,7 @@ public:
     bool Pressionado;
     void setPilha(Pilha * pilha, QString QIdadeBusca);
     void setPilha(Pilha * pilha);
+    Pilha * getPilha();
 
 private:
     Pilha * pilha;

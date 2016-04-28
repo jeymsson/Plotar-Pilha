@@ -88,6 +88,11 @@ void Meu_Item::setPilha(Pilha *pilha)
     this->pilha = pilha;
 }
 
+Pilha *Meu_Item::getPilha()
+{
+    return this->pilha;
+}
+
 void Meu_Item::No_Print(QPainter *Desenho, Pilha *pilha)
 {
     QRectF rect = limitadorPagina();
