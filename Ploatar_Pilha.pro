@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     meu_item.cpp \
     nol.cpp \
     pilha.cpp \
-    funcoes.cpp
+    funcoes.cpp \
+    manipulacoes.cpp
 
 HEADERS  += dialog.h \
     meu_item.h \
     nol.h \
     pilha.h \
-    funcoes.h
+    funcoes.h \
+    manipulacoes.h
 
 FORMS    += dialog.ui
