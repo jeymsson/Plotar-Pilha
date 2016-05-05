@@ -183,29 +183,65 @@ void Dialog::adicionaEm_combo(int idade)
 
 }
 
-void Dialog::on_botaoImporta_clicked()
+void Dialog::on_botaoGerar_clicked()
 {
-    QString manip = ui->editaManipulacoes->text();
+    QString manip = ui->editaManipulacoes->text();;
+
 
     if(ui->comboImporta->currentIndex() == 0){ //Se for a partir de texto
-        string manipulacoes = converter_QstringToString(manip);
+        if(manip.isEmpty()){
+            QMessageBox::information(this, tr("Importa."), tr("Nao tem Pilha digitada."));;
+        } else {
+            string manipulacoes = converter_QstringToString(manip);
+
+            Pilha * p = importar_pilha(manipulacoes);
+            if(p == NULL){
+                QMessageBox::information(this, tr("Importa."), tr("Texto da pilha fora dos padrões."));
+            } else {
+                Pilha * temp = this->pilha;
+                this->pilha = p;
+                this->Item->setPilha(this->pilha);
+                this->Item->busca = this->pilha->getTrailer()->getIdade();
+                delete temp;
+
+                if(!this->pilha->empty()){
+                    qDebug () << converter_StringToQstring(p->Print());
+                }
+            }
+        }
+    } else if(ui->comboImporta->currentIndex() == 1){ //Se for a partir de arquivo texto
+
+        string manipulacoes = (importar_by_Text());
+
         Pilha * p = importar_pilha(manipulacoes);
+        if(p == NULL){
+            QMessageBox::information(this, tr("Importa."), tr("Texto da pilha no arquivo texto fora dos padrões."));
+        } else {
+            Pilha * temp = this->pilha;
+            this->pilha = p;
+            this->Item->setPilha(this->pilha);
+            this->Item->busca = this->pilha->getTrailer()->getIdade();
+            delete temp;
 
-        Pilha * temp = this->pilha;
-        this->pilha = p;
-        this->Item->setPilha(this->pilha);
-        this->Item->busca = this->pilha->getTrailer()->getIdade();
-        delete temp;
-
-
-        qDebug () << converter_StringToQstring(p->Print());
+            if(!this->pilha->empty()){
+                qDebug () << converter_StringToQstring(p->Print());
+            }
+            this->ui->editaManipulacoes->setText(converter_StringToQstring(p->Print()));
+        }
     }
+
 }
 
+void Dialog::on_botaoExporta_clicked()
+{
+    if(ui->comboExportar->currentIndex() == 0){ //Se for a partir de texto
+        string pilha = this->pilha->Print();
+        if(this->pilha->empty()){
+            pilha = "vazio.";
+        }
 
-
-
-
-
-
+        string s = pilha;
+        Exportar_Novo(s);
+    }
+}
 

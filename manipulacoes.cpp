@@ -1,4 +1,41 @@
 #include "manipulacoes.h"
+#include <iostream>
+
+
+vector<string> split(string str, char delimiter)
+{
+    vector<string> internal;      // Create to return a list.
+    stringstream lineStream(str); // Turn the string into a stream.
+    string vari;                  // Variable to get string before anything.
+
+    while (getline(lineStream, vari, delimiter)) {
+        internal.push_back(vari);
+    }
+
+    return internal;
+}
+
+string importar_by_Text(){
+    /* ---- LENDO TEXTO DE ARQUIVO ----- */
+    ifstream arquivoEntrada; // manipulador para leitura de arquivo (ifstream permite ler um arquivo)
+    arquivoEntrada.open("arquivo_TEXTO.txt"); // abre para leitura o arquivo especificado
+
+    string retorno;
+    if (arquivoEntrada.is_open()) { // se conseguiu abrir o arquivo
+
+        string line; // variavel para armazenar as linhas lidas do arquivo
+
+        while (getline(arquivoEntrada, line)) { // enquanto tem linha no arquivo, le a linha e joga seu conteudo na variavel line
+            cout << line << '\n'; // escreve no console a linha lida do arquivo
+            retorno = retorno + line;
+        }
+        arquivoEntrada.close(); // fecha o arquivo
+    }
+    else {
+        cout << "nao foi possivel abrir o arquivo solicitado" << endl;
+    }
+    return retorno;
+}
 
 Pilha * importar_pilha(string &texto)
 {
@@ -10,24 +47,28 @@ Pilha * importar_pilha(string &texto)
     vector<string> iniciais;
     string		   ini;
     int			   years;
+    Pilha * arv_atual = new Pilha();
 
     getline(lineStream, ini, '(');				// Recebe o que tiver antes do (
     int Teste = conv_StringToInt(ini);		// Verifica se
-                /*cout << " ---- Teste 1 ---- " << endl;
+                /*cout << " ---- 1 - Criou variaveis ---- " << endl;
                 getchar();*/
+
     if (Teste == 0){								// existe (.
-
-        Pilha * arv_atual = new Pilha();
-
 
         // --Como é verdade monta arvore:
         arvorinha = split(texto, ')');				//Retira da linha: )
         arvorinha = split(arvorinha[0], '(');		//Retira da linha: (
-        arvorinha[0] = arvorinha[1];				//Organizando posicao
+        arvorinha.front() = arvorinha.back();				//Organizando posicao
         arvorinha.pop_back();						//Remove o ultimo.
 
-        //cout << "\nArvore: ." +arvorinha[0] << endl;
-        nozinhos = split(arvorinha[0], ';');		//Divide os nos por: ;
+        if(arvorinha.empty()){
+            return NULL;
+        }
+
+        cout << "\nArvore: ." << arvorinha.front() << endl;
+
+        nozinhos = split(arvorinha.front(), ';');		//Divide os nos por: ;
 
         int i = 0;
         int qtd = 0;
@@ -90,20 +131,26 @@ Pilha * importar_pilha(string &texto)
     }
     else {
         cout << "\nEstrutura fora do padrao, sem: ( ou possui espaços." << endl;
+        arv_atual = NULL;
     }
-    return NULL;
+    return arv_atual;
 }
 
-vector<string> split(string str, char delimiter)
-{
-    vector<string> internal;      // Create to return a list.
-    stringstream lineStream(str); // Turn the string into a stream.
-    string vari;                  // Variable to get string before anything.
+void Exportar_Novo(string & s){
+    /* ---- ESCREVENDO TEXTO EM ARQUIVO ----- */
+    ofstream arquivoSaida; 			// Manipulador para escrita em
+                                    //arquivo (ofstream permite escrever em um arquivo).
 
-    while (getline(lineStream, vari, delimiter)) {
-        internal.push_back(vari);
+    arquivoSaida.open("arquivo_TEXTO.txt"); 	// abre para escrita o arquivo
+    // especificado (sobrepoe o
+    //  conteudo atual do arquivo)
+
+    if (arquivoSaida.is_open()) { 		// se conseguiu abrir arquivo
+        arquivoSaida << s; 			   // escreve essa string no arquivo
+        arquivoSaida << "\n"; 		  // escreve mais texto no arquivo
+        arquivoSaida.close(); 		 // fecha o arquivo
     }
-
-    return internal;
+    else {
+        cout << "Nao foi possivel abrir o arquivo solicitado. " << endl;
+    }
 }
-

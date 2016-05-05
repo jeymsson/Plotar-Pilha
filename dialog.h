@@ -34,9 +34,12 @@ private slots:
     void on_botaoRemover_clicked();
 
     void on_botaoBuscar_clicked();
+
     void adicionaEm_combo(int idade);
 
-    void on_botaoImporta_clicked();
+    void on_botaoGerar_clicked();
+
+    void on_botaoExporta_clicked();
 
 private:
     Pilha * pilha;
